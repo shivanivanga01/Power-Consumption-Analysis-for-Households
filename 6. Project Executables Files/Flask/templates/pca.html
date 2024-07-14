@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="{{url_for('static',filename='pow.png')}}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Power Consumption Analysis</title>
+  <style>
+    body {
+      background-image: url('{{ url_for('static', filename='output.jpg') }}');
+      background-size: cover;
+      margin: 1%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+    }
+    .navbar {
+      width: 100%;
+      overflow: hidden;
+      background-color: #333;
+      position: absolute;
+      top: 0;
+    }
+    .navbar a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration: none;
+      font-size: 30px;
+      cursor: pointer;
+    }
+    .navbar a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    .about {
+      text-align: center;
+      background-color: rgba(12, 1, 0, 0.3);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 10px;
+      margin-top: 10px;
+      align-items: center;
+      display: none; /* Initially hidden */
+      justify-content: center;
+      transition: box-shadow 0.3s;
+    }
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: inline-block;
+      flex-direction: column;
+      justify-content: left;
+      align-items: left;
+      width: 500px;
+    }
+    .about.active, .form-container.active {
+      display: inline-block; /* Display only active sections */
+    }
+    label {
+      text-align: center;
+      font-size: 24px;
+      color: #000;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      outline: 0;
+      border: 0;
+      background-color: darkred;
+      color: white;
+      width: 100px;
+      height: 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .about h2 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      color: black;
+    }
+    .about p {
+      color: white;
+      font-size: 1.2em;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/">Home</a>
+    <a onClick="showSection('about')">About</a>
+  </nav>
+  <div class="about" id="about">
+    <h2>About Power Consumption Analysis</h2>
+    <p>
+      The Power Consumption Analysis project aims to provide households with valuable insights into their energy usage patterns. By analyzing the power consumption data, we can identify areas where energy is being used inefficiently and suggest practical measures to optimize energy use.
+    </p>
+    <p>
+      The ultimate goal of Power Consumption Analysis is to empower households with the knowledge and tools they need to manage their energy consumption effectively. By making informed decisions, households can achieve significant cost savings and contribute to the broader effort of energy conservation.
+    </p>
+  </div>
+  <div class="form-container">
+    <label><b>Power Consumption Analysis</b></label>
+    <form action="./predict" method="POST">
+      <input type="text" name="Global Reactive Power" id="reactive-power" placeholder="Enter the Global reactive power value between 0-1">
+      <br><br>
+      <input type="text" id="intensity" name="Global Intensity" placeholder="Enter the Global intensity value">
+      <br><br>
+      <input type="text" id="reading1" name="Submeter Reading 1" placeholder="Enter the Submeter Reading1">
+      <br><br>
+      <input type="text" id="reading2" name="Submeter Reading 2" placeholder="Enter the Submeter Reading2">
+      <br><br>
+      <input type="text" id="reading3" name="Submeter Reading 3" placeholder="Enter the Submeter Reading3">
+      <br><br>
+      <button type="submit" class="mybutton">Predict</button>
+    </form>
+  </div>
+  <script>
+    function showSection(section) {
+      const sections = document.querySelectorAll('.about, .form-container');
+      sections.forEach(sec => sec.classList.remove('active'));
+      document.getElementById(section).classList.add('active');
+    }
+  </script>
+</body>
+</html>
